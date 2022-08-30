@@ -20,7 +20,4 @@ class Player():
             self.y += player_speed
         if keys[pygame.K_d]:
             self.x += player_speed
-        if keys[pygame.K_LEFT]:
-            self.angle -= 0.02
-        if keys[pygame.K_RIGHT]:
-            self.angle += 0.02
+    

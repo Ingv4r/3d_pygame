@@ -1,15 +1,16 @@
 # game settings
-WIDTH = 800
-HEIGHT = 600
+WIDTH = 1200
+HEIGHT = 800
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
 running = True
-FPS = 60
+FPS = 120
+TITLE = 100
 
 #player setting
 player_pos = (HALF_WIDTH, HALF_HEIGHT)
 player_angle = 0
-player_speed = 2
+player_speed = 1
 
 #colors
 WHITE = (255, 255, 255)

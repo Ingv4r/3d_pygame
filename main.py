@@ -2,6 +2,7 @@ import pygame as pg
 from settings import *
 from player import Player
 import math
+from map import world_map
 
 pg.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -18,13 +19,13 @@ while running:
                 running = False
                 exit()
     player.movement()
+    mouse = pg.mouse.get_pos()
     screen.fill(BLACK)
 
     pg.draw.circle(screen, GREEN, player.pos, 8)
-    pg.draw.line(
-        screen, GREEN, player.pos, (player.x + WIDTH * math.cos(player.angle),
-                                    player.y + WIDTH * math.sin(player.angle))
-    )
+    pg.draw.line(screen, GREEN, player.pos, mouse)
+    for x, y in world_map:
+        pg.draw.rect(screen, DARKGREY, (x, y, TITLE, TITLE), 2)
 
 
     pg.display.flip()
