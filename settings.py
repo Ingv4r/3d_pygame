@@ -1,4 +1,5 @@
 import math
+from tkinter.tix import TEXT
 
 # game settings
 WIDTH = 1200
@@ -22,8 +23,13 @@ NUM_RAYS = 300
 MAX_DEPTH = 800
 DELTA_ANGLE = FOV / NUM_RAYS
 DIST = NUM_RAYS / (2 * math.tan(HALF_FOV))
-PROJ_COEF = DIST * TILE
+PROJ_COEF = 3 * DIST * TILE
 SCALE = WIDTH // NUM_RAYS
+
+# texture settings (1200 x 1200)
+TEXTURE_WIDTH = 1200
+TEXTURE_HEIGHT = 1200
+TEXTURE_SCALE = TEXTURE_WIDTH // TILE
 
 #player setting
 player_pos = (HALF_WIDTH, HALF_HEIGHT)
