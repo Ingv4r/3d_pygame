@@ -10,14 +10,19 @@ FPS = 60
 TILE = 100
 FPS_POS = (WIDTH - 65, 5)
 
+#minimap setttings
+MAP_SCALE = 5
+MAP_TILE = TILE // MAP_SCALE
+MAP_POS = (0, HEIGHT - HEIGHT // MAP_SCALE)
+
 #ray casting settings
 FOV = math.pi / 3
 HALF_FOV = FOV / 2
-NUM_RAYS = 120
+NUM_RAYS = 300
 MAX_DEPTH = 800
 DELTA_ANGLE = FOV / NUM_RAYS
 DIST = NUM_RAYS / (2 * math.tan(HALF_FOV))
-PROJ_COEF = 2 * DIST * TILE
+PROJ_COEF = DIST * TILE
 SCALE = WIDTH // NUM_RAYS
 
 #player setting
@@ -34,4 +39,4 @@ BLUE = (0, 0, 220)
 DARKGREY = (110, 110, 110)
 PURPLE = (120, 0, 120)
 SKYBLUE = (0, 186, 240)
-
+YELLOW = (220, 220, 0)

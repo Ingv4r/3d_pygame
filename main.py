@@ -3,14 +3,14 @@ import math
 from settings import *
 from player import Player
 from map import world_map
-from ray_casting import ray_casting
 from drawing import Drawing
 
 pg.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT))
+sc_map = pg.Surface((WIDTH // MAP_SCALE, HEIGHT // MAP_SCALE))
 clock = pg.time.Clock()
 player = Player()
-drawing = Drawing(screen)
+drawing = Drawing(screen, sc_map)
 
 while running:
     for event in pg.event.get():
@@ -28,14 +28,8 @@ while running:
     drawing.background()
     drawing.world(player.pos, player.angle)
     drawing.fps(clock)
+    drawing.mini_map(player)
 
-    #pg.draw.circle(screen, GREEN, (int(player.x), int(player.y)), 8)
-    #pg.draw.line(screen, GREEN, player.pos, 
-    #(player.x + WIDTH * math.cos(player.angle),
-    #player.y + WIDTH * math.sin(player.angle)))
-#
-    #for x, y in world_map:
-    #    pg.draw.rect(screen, DARKGREY, (x, y, TILE, TILE), 2)
 
 
     pg.display.flip()
