@@ -20,7 +20,7 @@ while running:
                 running = False
                 exit()
     player.movement()
-    mouse = pg.mouse.get_pos()
+    #mouse = pg.mouse.get_pos()
     screen.fill(BLACK)
 
     pg.draw.rect(screen, BLUE, (0, 0, WIDTH, HALF_HEIGHT))
