@@ -4,11 +4,13 @@ from settings import *
 from player import Player
 from map import world_map
 from ray_casting import ray_casting
+from drawing import Drawing
 
 pg.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
 player = Player()
+drawing = Drawing(screen)
 
 while running:
     for event in pg.event.get():
@@ -23,10 +25,9 @@ while running:
     #mouse = pg.mouse.get_pos()
     screen.fill(BLACK)
 
-    pg.draw.rect(screen, BLUE, (0, 0, WIDTH, HALF_HEIGHT))
-    pg.draw.rect(screen, DARKGREY, (0, HALF_HEIGHT, WIDTH, HALF_HEIGHT))
-
-    ray_casting(screen, player.pos, player.angle)
+    drawing.background()
+    drawing.world(player.pos, player.angle)
+    drawing.fps(clock)
 
     #pg.draw.circle(screen, GREEN, (int(player.x), int(player.y)), 8)
     #pg.draw.line(screen, GREEN, player.pos, 
@@ -38,4 +39,4 @@ while running:
 
 
     pg.display.flip()
-    clock.tick(FPS)
+    clock.tick()

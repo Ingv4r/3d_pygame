@@ -8,6 +8,7 @@ HALF_HEIGHT = HEIGHT // 2
 running = True
 FPS = 60
 TILE = 100
+FPS_POS = (WIDTH - 65, 5)
 
 #ray casting settings
 FOV = math.pi / 3
@@ -32,4 +33,5 @@ GREEN = (0, 220, 0)
 BLUE = (0, 0, 220)
 DARKGREY = (110, 110, 110)
 PURPLE = (120, 0, 120)
+SKYBLUE = (0, 186, 240)
 
