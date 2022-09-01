@@ -25,7 +25,7 @@ while running:
     #mouse = pg.mouse.get_pos()
     screen.fill(BLACK)
 
-    drawing.background()
+    drawing.background(player.angle)
     drawing.world(player.pos, player.angle)
     drawing.fps(clock)
     drawing.mini_map(player)
