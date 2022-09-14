@@ -8,14 +8,14 @@ class Drawing():
         self.screen = screen
         self.sc_map = sc_map
         self.font = pygame.font.SysFont('Arial', 36, bold=True)
-        self.textures = {'1': pygame.image.load('pictures/wall1.png').convert(),
-                         '2': pygame.image.load('pictures/wall2.png').convert(),
-                         'S': pygame.image.load('pictures/sky3.png').convert()
+        self.textures = {1: pygame.image.load('pictures/wall1.png').convert(),
+                         2: pygame.image.load('pictures/wall2.png').convert(),
+                         'S': pygame.image.load('pictures/sky1.png').convert()
                          }
 
 
     def background(self, angle):
-        sky_offset = -13 * math.degrees(angle) % WIDTH
+        sky_offset = -15 * math.degrees(angle) % WIDTH
         self.screen.blit(self.textures['S'], (sky_offset, 0))
         self.screen.blit(self.textures['S'], (sky_offset - WIDTH, 0))
         self.screen.blit(self.textures['S'], (sky_offset + WIDTH, 0))

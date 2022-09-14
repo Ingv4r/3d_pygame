@@ -1,21 +1,23 @@
 import math
-from tkinter import CENTER
-from tkinter.tix import TEXT
 
 # game settings
 WIDTH = 1200
 HEIGHT = 800
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
+PENTA_HEIGHT = 5 * HEIGHT
+DOUBLE_HEIGHT = 2 * HEIGHT
 running = True
 FPS = 60
 TILE = 100
 FPS_POS = (WIDTH - 65, 5)
 
 #minimap setttings
-MAP_SCALE = 5
+MINIMAP_SCALE = 5
+MINIMAP_RES = (WIDTH // MINIMAP_SCALE, HEIGHT // MINIMAP_SCALE)
+MAP_SCALE = 2 * MINIMAP_SCALE # 1 -> 12*8, 2 ->24*16...
 MAP_TILE = TILE // MAP_SCALE
-MAP_POS = (0, HEIGHT - HEIGHT // MAP_SCALE)
+MAP_POS = (0, HEIGHT - HEIGHT // MINIMAP_SCALE)
 
 #ray casting settings
 FOV = math.pi / 3
@@ -30,6 +32,8 @@ SCALE = WIDTH // NUM_RAYS
 # sprite settings
 DOUBLE_PI = 2 * math.pi
 CENTER_RAY = NUM_RAYS // 2 - 1
+FAKE_RAYS = 100
+FAKE_RAYS_RANGE = NUM_RAYS + 1 * FAKE_RAYS
 
 # texture settings (1200 x 1200)
 TEXTURE_WIDTH = 1200
