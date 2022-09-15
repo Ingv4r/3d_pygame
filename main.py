@@ -18,11 +18,9 @@ drawing = Drawing(screen, sc_map)
 while running:
     for event in pg.event.get():
         if event.type == pg.QUIT:
-            running = False
             exit()
 
     player.movement()
-    #mouse = pg.mouse.get_pos()
     screen.fill(BLACK)
 
     drawing.background(player.angle)
@@ -30,8 +28,6 @@ while running:
     drawing.world(walls + [obj.object_locate(player) for obj in sprites.list_of_objects])
     drawing.fps(clock)
     drawing.mini_map(player)
-
-
 
     pg.display.flip()
     clock.tick()

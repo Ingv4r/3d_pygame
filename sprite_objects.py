@@ -1,30 +1,40 @@
 import pygame
 from settings import *
+from collections import deque
 
 class Sprites():
     def __init__(self):
-        self.sprite_types = {
-            'barrel': pygame.image.load('sprites/barel/0.png').convert_alpha(),
-            'pedistal': pygame.image.load('sprites/pedistal/0.png').convert_alpha(),
-            'cacodemon': [pygame.image.load(f'sprites/cacodemon/{i}.png').convert_alpha() for i in range(8)]
+        self.sprite_param = {
+            'sprite_barrel': {
+                'sprite': pygame.image.load('sprites/barel/base/0.png').convert_alpha(),
+                'viewing_angles': None,
+                'shift': 1.8,
+                'scale': 0.4,
+                'animation': deque(
+                    [pygame.image.load(f'sprites/barel/anim/{i}.png').convert_alpha() for i in range(12)]),
+                'animation_dist': 800,
+                'animation_speed': 10,
+            }
         }
         self.list_of_objects = [
-            SpriteObject(self.sprite_types['barrel'], True, (4.5, 4.5), 1.8, 0.4),
-            SpriteObject(self.sprite_types['barrel'], True, (7.5, 4.5), 1.8, 0.4),
-            SpriteObject(self.sprite_types['pedistal'], True, (4.3, 2.5), 1.6, 0.4),
-            SpriteObject(self.sprite_types['pedistal'], True, (7.7, 2.5), 1.6, 0.4),
-            SpriteObject(self.sprite_types['cacodemon'], False, (6.5, 3.5), -0.2, 0.7),
+            SpriteObject(self.sprite_param['sprite_barrel'], (4.5, 4.5)),
+            SpriteObject(self.sprite_param['sprite_barrel'], (7.5, 4.5)),
         ]
 
 class SpriteObject():
-    def __init__(self, object, static, pos, shift, scale) -> None:
-        self.object = object
-        self.static = static
+    def __init__(self, param, pos) -> None:
+        self.object = param['sprite']
+        self.viewing_angles = param['viewing_angles']
+        self.shift = param['shift']
+        self.scale = param['scale']
+        self.animation = param['animation']
+        self.animation_dist = param['animation_dist']
+        self.animation_speed = param['animation_speed']
+        self.animation_count = 0
         self.pos = self.x, self.y = pos[0] * TILE, pos[1] * TILE
-        self.shift = shift
-        self.scale = scale
+        
 
-        if not static:
+        if self.viewing_angles:
             self.sprite_angles = [frozenset(range(i, i + 45)) for i in range(0, 360, 45)]
             self.sprite_position = {angle: pos for angle, pos in zip(self.sprite_angles, self.object)}
 
@@ -47,8 +57,8 @@ class SpriteObject():
             proj_height = min(int(PROJ_COEF / distance_to_sprite * self.scale), DOUBLE_HEIGHT)
             half_proj_height = proj_height // 2
             shift = half_proj_height * self.shift
-
-            if not self.static:
+            # chosing sprite for angle
+            if not self.viewing_angles:
                 if theta < 0:
                     theta += DOUBLE_PI
                 theta = 360 - int(math.degrees(theta)) 
@@ -58,9 +68,19 @@ class SpriteObject():
                         self.object = self.sprite_position[angles]
                         break
 
+            #sprite animation
+            sprite_obj = self.object
+            if self.animation and self.animation_dist < self.animation_dist:
+                sprite_obj = self.animation[0]
+                if self.animation_count < self.animation_speed:
+                    self.animation_count += 1
+                else:
+                    self.animation.rotate()
+                    self.animation_count = 0
 
+            #sprite scale and pos
             sprite_pos = (current_ray * SCALE - half_proj_height, HALF_HEIGHT - half_proj_height + shift)
-            sprite = pygame.transform.scale(self.object, (proj_height, proj_height))
+            sprite = pygame.transform.scale(sprite_obj, (proj_height, proj_height))
             return(distance_to_sprite, sprite, sprite_pos)
         else:
             return (False,)

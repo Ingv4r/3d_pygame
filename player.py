@@ -36,10 +36,6 @@ class Player():
         if keys[pygame.K_d]:
             self.x += -player_speed * sin_a
             self.y += player_speed * cos_a
-        if keys[pygame.K_LEFT]:
-            self.angle -= 0.02
-        if keys[pygame.K_RIGHT]:
-            self.angle += 0.02  
     
     def mouse_control(self):
         if pygame.mouse.get_focused():
