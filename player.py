@@ -10,15 +10,15 @@ class Player():
 
     @property
     def pos(self):
-        return(self.x, self.y)
+        return self.x, self.y
 
     def movement(self):
-        self.key_control()
+        self.keys_control()
         self.mouse_control()
         self.angle %= DOUBLE_PI
 
 
-    def key_control(self):
+    def keys_control(self):
         sin_a = math.sin(self.angle)
         cos_a = math.cos(self.angle)
         keys = pygame.key.get_pressed()

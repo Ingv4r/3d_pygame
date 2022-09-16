@@ -19,7 +19,7 @@ def ray_casting(player, textures):
         sin_a = sin_a if sin_a else 0.000001
         cos_a = cos_a if cos_a else 0.000001
 
-         # verticals
+        # verticals
         x, dx = (xm + TILE, 1) if cos_a >= 0 else (xm, -1)
         for i in range(0, WORLD_WIDTH, TILE):
             depth_v = (x - ox) / cos_a

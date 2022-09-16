@@ -41,9 +41,9 @@ TEXTURE_HEIGHT = 1200
 TEXTURE_SCALE = TEXTURE_WIDTH // TILE
 
 #player setting
-player_pos = (HALF_WIDTH // 4, HALF_HEIGHT // 2)
+player_pos = (HALF_WIDTH // 4, HALF_HEIGHT - 50)
 player_angle = 0
-player_speed = 2
+player_speed = 3
 
 #colors
 WHITE = (255, 255, 255)
@@ -51,7 +51,7 @@ BLACK = (0, 0, 0)
 RED = (220, 0, 0)
 GREEN = (0, 220, 0)
 BLUE = (0, 0, 220)
-DARKGREY = (110, 110, 110)
+DARKGREY = (52, 50, 50)
 PURPLE = (120, 0, 120)
 SKYBLUE = (0, 186, 240)
 YELLOW = (220, 220, 0)
