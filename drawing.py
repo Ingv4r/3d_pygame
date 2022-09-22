@@ -13,12 +13,14 @@ class Drawing():
             2: pygame.image.load('pictures/wall2.png').convert(),
             3: pygame.image.load('pictures/wall3.png').convert(),
             4: pygame.image.load('pictures/wall4.png').convert(),
+            5: pygame.image.load('pictures/wall5.png').convert(),
+            6: pygame.image.load('pictures/wall6.png').convert(),
             'S': pygame.image.load('pictures/sky1.png').convert()
             }
 
 
     def background(self, angle):
-        sky_offset = -10 * math.degrees(angle) % WIDTH
+        sky_offset = -15 * math.degrees(angle) % WIDTH
         self.screen.blit(self.textures['S'], (sky_offset, 0))
         self.screen.blit(self.textures['S'], (sky_offset - WIDTH, 0))
         self.screen.blit(self.textures['S'], (sky_offset + WIDTH, 0))
