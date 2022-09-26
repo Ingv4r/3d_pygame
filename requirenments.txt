@@ -1,0 +1,7 @@
+autopep8==1.7.0
+llvmlite==0.39.1
+numba==0.56.2
+numpy==1.23.3
+pycodestyle==2.9.1
+pygame==2.1.2
+toml==0.10.2

@@ -12,14 +12,14 @@ FPS = 60
 TILE = 100
 FPS_POS = (WIDTH - 65, 5)
 
-#minimap setttings
+# minimap setttings
 MINIMAP_SCALE = 5
 MINIMAP_RES = (WIDTH // MINIMAP_SCALE, HEIGHT // MINIMAP_SCALE)
-MAP_SCALE = 2 * MINIMAP_SCALE # 1 -> 12*8, 2 ->24*16...
+MAP_SCALE = 2 * MINIMAP_SCALE  # 1 -> 12*8, 2 ->24*16...
 MAP_TILE = TILE // MAP_SCALE
 MAP_POS = (0, HEIGHT - HEIGHT // MINIMAP_SCALE)
 
-#ray casting settings
+# ray casting settings
 FOV = math.pi / 3
 HALF_FOV = FOV / 2
 NUM_RAYS = 300
@@ -40,12 +40,12 @@ TEXTURE_WIDTH = 1200
 TEXTURE_HEIGHT = 1200
 TEXTURE_SCALE = TEXTURE_WIDTH // TILE
 
-#player setting
+# player setting
 player_pos = (HALF_WIDTH // 4, HALF_HEIGHT - 50)
 player_angle = 0
 player_speed = 3
 
-#colors
+# colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (220, 0, 0)

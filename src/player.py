@@ -1,7 +1,8 @@
-from settings import *
+from util.settings import *
 import pygame
 import math
 from map import collision_walls
+
 
 class Player:
     def __init__(self, sprites):
