@@ -1,8 +1,8 @@
-from settings import *
+from util.settings import *
 import pygame
 from numba.core import types
 from numba.typed import Dict
-from numba import int32
+from numba import float64
 
 _ = False
 
@@ -28,7 +28,7 @@ matrix_map = [
 
 WORLD_WIDTH = len(matrix_map[0]) * TILE
 WORLD_HEIGHT = len(matrix_map) * TILE
-world_map = Dict.empty(key_type=types.UniTuple(int32, 2), value_type=int32)
+world_map = Dict.empty(key_type=types.UniTuple(float64, 2), value_type=float64)
 mini_map = set()
 collision_walls = []
 for j, row in enumerate(matrix_map):

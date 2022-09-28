@@ -1,4 +1,4 @@
-from settings import *
+from util.settings import *
 import pygame
 import math
 from map import collision_walls

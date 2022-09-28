@@ -1,5 +1,5 @@
 import pygame
-from settings import *
+from util.settings import *
 from map import world_map, WORLD_WIDTH, WORLD_HEIGHT
 from numba import njit
 

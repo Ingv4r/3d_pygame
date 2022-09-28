@@ -1,9 +1,9 @@
 import pygame as pg
-from settings import *
+from util.settings import *
 from player import Player
-from drawing import Drawing
-from sprite_objects import *
-from ray_casting import ray_casting_walls
+from renderer.drawing import Drawing
+from util.sprite_objects import *
+from util.ray_casting import ray_casting_walls
 
 pg.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT))

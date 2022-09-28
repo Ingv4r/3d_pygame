@@ -1,36 +1,47 @@
 import pygame
-from settings import *
+from util.settings import *
 from collections import deque
 
 def make_sprite_params(
-                        sprite_name: str, sprite_path: str,  viewing_angles: bool, shift: int, scale: int, 
-                        frames: int | None, animation_dist: int, animation_speed: int, blocked: bool, base_angles=0,
-                        ) -> dict:
-        dict = {
-            'sprite': pygame.image.load(sprite_path).convert_alpha(),
-            'viewing_angles': viewing_angles,
-            'shift': shift, # 1,8
-            'scale': scale, # 0.4
-            'animation': deque(
-                [pygame.image.load(f'sprites/{sprite_name}/anim/{i}.png').convert_alpha() for i in range(frames+1)]
-                ) if frames else None,
-            'animation_dist': animation_dist, # 800
-            'animation_speed': animation_speed, # 10
-            'blocked' : blocked
-            }    
-        if base_angles:
-            path = sprite_path[:-5]
-            dict['sprite'] = [pygame.image.load(f'{path}{i}.png').convert_alpha() for i in range(base_angles+1)]
-        return dict
+    sprite_name: str,
+    sprite_path: str,
+    viewing_angles: bool,
+    shift: int,
+    scale: int,
+    frames: int | None,
+    animation_dist: int,
+    animation_speed: int,
+    blocked: bool,
+    base_angles=0,
+) -> dict:
+    dict = {
+        'sprite': pygame.image.load(sprite_path).convert_alpha(),
+        'viewing_angles': viewing_angles,
+        'shift': shift,  # 1,8
+        'scale': scale,  # 0.4
+        'animation': deque(
+            [pygame.image.load(
+                f'res/sprites/{sprite_name}/anim/{i}.png').convert_alpha() for i in range(frames+1)]
+        ) if frames else None,
+        'animation_dist': animation_dist,  # 800
+        'animation_speed': animation_speed,  # 10
+        'blocked': blocked
+    }
+    if base_angles:
+        path = sprite_path[:-5]
+        dict['sprite'] = [pygame.image.load(
+            f'{path}{i}.png').convert_alpha() for i in range(base_angles+1)]
+    return dict
 
 class Sprites():
     def __init__(self):
+        self.root = 'res/sprites/'
         self.sprite_param = {
-            'sprite_barrel': make_sprite_params('barel', 'sprites/barel/base/0.png', False, 1.8, 0.4, 12, 800, 10, True),
-            'cacodemon': make_sprite_params('cacodemon', 'sprites/cacodemon/base/0.png', True, -0.2, 1.1, 8, 700, 12, True, 7),
-            'flame': make_sprite_params('flame', 'sprites/flame/base/0.png', False, 1.8, 0.4, 15, 1000, 9, False),
-            'pedistal': make_sprite_params('pedistal', 'sprites/pedistal/base/0.png', False, 1.8, 0.4, None, 800, 10, True),
-            'pin': make_sprite_params('pin', 'sprites/pin/base/0.png', False, 1.8, 0.4, 7, 800, 5, True),
+            'sprite_barrel': make_sprite_params('barel', f'{self.root}barel/base/0.png', False, 1.8, 0.4, 12, 800, 10, True),
+            'cacodemon': make_sprite_params('cacodemon', f'{self.root}cacodemon/base/0.png', True, -0.2, 1.1, 8, 700, 12, True, 7),
+            'flame': make_sprite_params('flame', f'{self.root}flame/base/0.png', False, 1.8, 0.4, 15, 1000, 9, False),
+            'pedistal': make_sprite_params('pedistal', f'{self.root}pedistal/base/0.png', False, 1.8, 0.4, None, 800, 10, True),
+            'pin': make_sprite_params('pin', f'{self.root}pin/base/0.png', False, 1.8, 0.4, 7, 800, 5, True),
         }
         self.list_of_objects = [
             SpriteObject(self.sprite_param['sprite_barrel'], (4.5, 4.5)),

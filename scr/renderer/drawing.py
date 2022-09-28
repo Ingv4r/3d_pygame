@@ -1,21 +1,22 @@
 import pygame
-from settings import *
-from ray_casting import ray_casting
+from util.settings import *
+from util.ray_casting import ray_casting
 from map import mini_map
 
 class Drawing():
     def __init__(self, screen, sc_map):
+        self.root = 'res/pictures/'
         self.screen = screen
         self.sc_map = sc_map
         self.font = pygame.font.SysFont('Arial', 36, bold=True)
         self.textures = {
-            1: pygame.image.load('pictures/wall1.png').convert(),
-            2: pygame.image.load('pictures/wall2.png').convert(),
-            3: pygame.image.load('pictures/wall3.png').convert(),
-            4: pygame.image.load('pictures/wall4.png').convert(),
-            5: pygame.image.load('pictures/wall5.png').convert(),
-            6: pygame.image.load('pictures/wall6.png').convert(),
-            'S': pygame.image.load('pictures/sky1.png').convert()
+            1: pygame.image.load(f'{self.root}wall1.png').convert(),
+            2: pygame.image.load(f'{self.root}wall2.png').convert(),
+            3: pygame.image.load(f'{self.root}wall3.png').convert(),
+            4: pygame.image.load(f'{self.root}wall4.png').convert(),
+            5: pygame.image.load(f'{self.root}wall5.png').convert(),
+            6: pygame.image.load(f'{self.root}wall6.png').convert(),
+            'S': pygame.image.load(f'{self.root}sky1.png').convert()
             }
 
 
