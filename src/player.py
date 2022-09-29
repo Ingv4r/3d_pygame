@@ -1,17 +1,18 @@
+from util.game_instances import GameInstanceHolder
 from util.settings import *
 import pygame
 import math
 from map import collision_walls
 
 class Player:
-    def __init__(self, sprites):
+    def __init__(self, game_instance_holder: GameInstanceHolder):
         self.x, self.y = player_pos
         self.angle = player_angle
         self.sensitivity = 0.004
         # collision parameters
         self.side = 50
         self.rect = pygame.Rect(*player_pos, self.side, self.side)
-        self.collision_list = collision_walls + sprites.collision_sprites
+        self.collision_list = collision_walls + game_instance_holder.collision_objects
 
     @property
     def pos(self):
