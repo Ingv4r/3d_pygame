@@ -30,4 +30,4 @@ while running:
     drawing.mini_map(player)
 
     pg.display.flip()
-    clock.tick()
+    clock.tick(FPS)

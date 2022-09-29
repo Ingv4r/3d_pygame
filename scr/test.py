@@ -1,4 +1,3 @@
-from functools import reduce
+path = 'barel/base/0.png'
 
-x = reduce()
-
+print(path.split('/')[-3])
