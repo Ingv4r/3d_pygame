@@ -1,3 +1,4 @@
-path = 'barel/base/0.png'
+var = 0
 
-print(path.split('/')[-3])
+if not var:
+    print(var)
