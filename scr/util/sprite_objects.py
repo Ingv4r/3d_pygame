@@ -55,7 +55,7 @@ class Sprites():
     def __init__(self):
         root = 'res/sprites/'
         self.sprite_param = {
-            'sprite_barrel': SpriteParams.make_dict(
+            'sprite_barrel': SpriteParams(
                 path=f'{root}barel/base/0.png',
                 has_angles=False,
                 shift=1.8,
@@ -63,8 +63,8 @@ class Sprites():
                 frames=12,
                 anim_dist=800,
                 anim_speed=10,
-                blocked=True),
-            'cacodemon': SpriteParams.make_dict(
+                blocked=True).make_dict(),
+            'cacodemon': SpriteParams(
                 path=f'{root}cacodemon/base/0.png',
                 has_angles=True,
                 shift=-0.2,
@@ -73,8 +73,8 @@ class Sprites():
                 anim_dist=700,
                 anim_speed=12,
                 blocked=True,
-                base_angles=7),
-            'flame': SpriteParams.make_dict(
+                base_angles=7).make_dict(),
+            'flame': SpriteParams(
                 path=f'{root}flame/base/0.png', 
                 has_angles=False, 
                 shift=1.8, 
@@ -82,8 +82,8 @@ class Sprites():
                 frames=15, 
                 anim_dist=1000, 
                 anim_speed=9, 
-                blocked=False),
-            'pedistal': SpriteParams.make_dict(
+                blocked=False).make_dict,
+            'pedistal': SpriteParams(
                 path=f'{root}pedistal/base/0.png', 
                 has_angles=False, 
                 shift=1.8, 
@@ -91,9 +91,9 @@ class Sprites():
                 frames=None, 
                 anim_dist=800, 
                 anim_speed=10, 
-                blocked=True),
-            'pin': SpriteParams.make_dict(
-                f'{root}pin/base/0.png', False, 1.8, 0.4, 7, 800, 5, True),
+                blocked=True).make_dict(),
+            'pin': SpriteParams(
+                f'{root}pin/base/0.png', False, 1.8, 0.4, 7, 800, 5, True).make_dict(),
         }
         self.list_of_objects = [
             SpriteObject(
@@ -119,12 +119,12 @@ class SpriteObject:
         self.viewing_angles = parameters['viewing_angles']
         self.shift = parameters['shift']
         self.scale = parameters['scale']
-        self.animation = parameters['animation'].copy(
-        ) if parameters['animation'] else None
+        self.animation = parameters['frames'].copy(
+        ) if parameters['frames'] else None
         self.animation_dist = parameters['animation_dist']
         self.animation_speed = parameters['animation_speed']
-        self.animation_count = 0
         self.blocked = parameters['blocked']
+        self.animation_count = 0
         self.side = 30
         self.x, self.y = position[0] * TILE, position[1] * TILE
         self.position = self.x - self.side // 2, self.y - self.side // 2
