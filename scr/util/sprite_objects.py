@@ -47,7 +47,7 @@ class SpriteParams:
         }
         if self.base_angles:
             self.change_sprite(dict_of_params)
-            
+
         return dict_of_params
 
 
@@ -75,22 +75,22 @@ class Sprites():
                 blocked=True,
                 base_angles=7).make_dict(),
             'flame': SpriteParams(
-                path=f'{root}flame/base/0.png', 
-                has_angles=False, 
-                shift=1.8, 
-                scale=0.4, 
-                frames=15, 
-                anim_dist=1000, 
-                anim_speed=9, 
-                blocked=False).make_dict,
+                path=f'{root}flame/base/0.png',
+                has_angles=False,
+                shift=1.8,
+                scale=0.4,
+                frames=15,
+                anim_dist=1000,
+                anim_speed=9,
+                blocked=False).make_dict(),
             'pedistal': SpriteParams(
-                path=f'{root}pedistal/base/0.png', 
-                has_angles=False, 
-                shift=1.8, 
-                scale=0.4, 
-                frames=None, 
-                anim_dist=800, 
-                anim_speed=10, 
+                path=f'{root}pedistal/base/0.png',
+                has_angles=False,
+                shift=1.8,
+                scale=0.4,
+                frames=None,
+                anim_dist=800,
+                anim_speed=10,
                 blocked=True).make_dict(),
             'pin': SpriteParams(
                 f'{root}pin/base/0.png', False, 1.8, 0.4, 7, 800, 5, True).make_dict(),
@@ -109,7 +109,7 @@ class Sprites():
             SpriteObject(self.sprite_param['pin'], position=(10.5, 14.5)),
             SpriteObject(self.sprite_param['pin'], position=(13.5, 14.5)),
         ]
-        self.collision_sprites = [pygame.Rect(*obj.pos, obj.side, obj.side) for obj in
+        self.collision_sprites = [pygame.Rect(*obj.position, obj.side, obj.side) for obj in
                                   self.list_of_objects if obj.blocked]
 
 
