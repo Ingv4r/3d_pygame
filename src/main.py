@@ -15,21 +15,17 @@ sprite_manager = SpriteManager()
 game_instance_holder = GameInstanceHolder(sprite_manager)
 clock = pg.time.Clock()
 player = Player(game_instance_holder)
-drawing = Drawing(screen, sc_map)
+drawing = Drawing(screen, sc_map, player)
 
 while running:
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
-            exit()
-
     player.movement()
-    screen.fill(BLACK)
 
     drawing.background(player.angle)
     walls = ray_casting_walls(player, drawing.textures)
     drawing.world(walls + [game_object.object_locate(player) for game_object in game_instance_holder.game_objects])
     drawing.fps(clock)
     drawing.mini_map(player)
+    drawing.player_weapon()
 
     pg.display.flip()
     clock.tick(FPS)
