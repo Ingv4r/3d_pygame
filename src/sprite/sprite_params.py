@@ -28,3 +28,4 @@ class SpriteParams:
             [pygame.image.load(
                 f'res/sprites/{self.sprite_name}/anim/{i}.png').convert_alpha() for i in range(self.frame_count+1)]
         ) if self.frame_count else None
+#dfsdfsd
