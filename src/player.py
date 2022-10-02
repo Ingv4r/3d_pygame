@@ -10,7 +10,7 @@ class Player:
         self.angle = player_angle
         self.sensitivity = 0.004
         # collision parameters
-        self.sprites = sprites
+        self.sprites = game_instance_holder
         self.side = 50
         self.rect = pygame.Rect(*player_pos, self.side, self.side)
         # weapon
@@ -22,7 +22,7 @@ class Player:
 
     @property
     def collision_list(self):
-        return collision_walls + self.sprites.collision_sprites
+        return collision_walls + self.sprites.collision_objects
 
     def detect_collision(self, dx, dy):
         next_rect = self.rect.copy()

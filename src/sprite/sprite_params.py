@@ -28,8 +28,3 @@ class SpriteParams:
             [pygame.image.load(
                 f'res/sprites/{self.sprite_name}/anim/{i}.png').convert_alpha() for i in range(self.frame_count+1)]
         ) if self.frame_count else None
-
-    def change_sprite(self, dict: dict):
-        path = self.path[:-5]
-        dict['sprite'] = [pygame.image.load(
-            f'{path}{i}.png').convert_alpha() for i in range(self.base_angles+1)]

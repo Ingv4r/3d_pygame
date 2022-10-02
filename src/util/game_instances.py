@@ -4,7 +4,6 @@ from game_object import GameObject
 from util.point2d import Point2d
 from util.position import Position
 
-
 class GameInstanceHolder():
     def __init__(self, sprite_manager: SpriteManager) -> None:
         barrel = GameObject(sprite_manager.get_sprite(SpriteManager.BARREL))
