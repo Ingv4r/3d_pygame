@@ -1,3 +1,4 @@
+from typing import Tuple
 import pygame
 from util.settings import *
 from collections import deque
@@ -26,7 +27,7 @@ class SpriteParams:
 
         self.sprite_name = self.path.split('/')[-3]
 
-    def change_sprite(self, dict: dict):
+    def change_sprite(self, dict: dict) -> None:
         path = self.path[:-5]
         dict['sprite'] = [pygame.image.load(
             f'{path}{i}.png').convert_alpha() for i in range(self.base_angles+1)]
@@ -52,7 +53,7 @@ class SpriteParams:
 
 
 class Sprites():
-    def __init__(self):
+    def __init__(self) -> None:
         root = 'res/sprites/'
         self.sprite_param = {
             'sprite_barrel': SpriteParams(
@@ -114,7 +115,7 @@ class Sprites():
 
 
 class SpriteObject:
-    def __init__(self, parameters, position):
+    def __init__(self, parameters: dict, position: tuple) -> None:
         self.object = parameters['sprite']
         self.viewing_angles = parameters['viewing_angles']
         self.shift = parameters['shift']
@@ -134,7 +135,7 @@ class SpriteObject:
             self.sprite_positions = {angle: pos for angle,
                                      pos in zip(self.sprite_angles, self.object)}
 
-    def object_locate(self, player):
+    def object_locate(self, player) -> tuple:
 
         dx, dy = self.x - player.x, self.y - player.y
         distance_to_sprite = math.sqrt(dx ** 2 + dy ** 2)
