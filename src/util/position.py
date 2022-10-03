@@ -4,7 +4,7 @@ from util.point2d import Point2d
 
 class Position:
     def __init__(self, point: Point2d) -> None:
-        self.point: Point2d = point
+        self.point = point
 
     def update(self, x: float = 0, y: float = 0) -> Position:
         self.point.x = x

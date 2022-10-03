@@ -4,7 +4,7 @@ from sprite.sprite import Sprite
 from sprite.sprite_params import SpriteParams
 
 
-class SpriteManager():
+class SpriteManager:
     root_directory = 'res/sprites'
     
     BARREL = "barrel"

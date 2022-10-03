@@ -16,8 +16,8 @@ class GameObject:
     ) -> None:
         self.id: uuid.UUID = uuid.uuid4()
         self.sprite = sprite
-        self.position: Position = position
-        self.tag: str = tag
+        self.position = position
+        self.tag = tag
 
     def update_position(self, position: Position) -> None:
         x = position.point.x * TILE
@@ -52,7 +52,7 @@ class GameObject:
 
                 for angles in self.sprite.sprite_angles:
                     if theta in angles:
-                        self.object = self.sprite.sprite_positions[angles]
+                        self.sprite.sprite = self.sprite.sprite_positions[angles]
                         break
 
             # sprite animation
@@ -70,6 +70,6 @@ class GameObject:
                           HALF_HEIGHT - half_proj_height + shift)
             sprite = pygame.transform.scale(
                 sprite_object, (proj_height, proj_height))
-            return (distance_to_sprite, sprite, sprite_pos)
+            return distance_to_sprite, sprite, sprite_pos
         else:
-            return (False,)
+            return False,
