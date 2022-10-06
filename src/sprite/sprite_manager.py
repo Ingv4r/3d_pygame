@@ -18,10 +18,11 @@ class SpriteManager:
         self.add_sprite(
             SpriteManager.BARREL,
             SpriteParams(
-                path=f'{SpriteManager.root_directory}/barel/base/0.png',
+                path=f'{SpriteManager.root_directory}/barrel/base/0.png',
                 has_angles=False,
                 shift=1.8,
                 scale=0.4,
+                side=30,
                 frame_count=12,
                 anim_dist=800,
                 anim_speed=10,
@@ -32,10 +33,11 @@ class SpriteManager:
         self.add_sprite(
             SpriteManager.CACODEMON,
             SpriteParams(
-                path=f'{SpriteManager.root_directory}/cacodemon/base/0.png',
+                path=f'{SpriteManager.root_directory}/npc/cacodemon/base/0.png',
                 has_angles=True,
                 shift=-0.2,
                 scale=1.1,
+                side=50,
                 frame_count=8,
                 anim_dist=700,
                 anim_speed=12,
@@ -51,6 +53,7 @@ class SpriteManager:
                 has_angles=False,
                 shift=1.8,
                 scale=0.4,
+                side=30,
                 frame_count=15,
                 anim_dist=1000,
                 anim_speed=9,
@@ -61,10 +64,11 @@ class SpriteManager:
         self.add_sprite(
             SpriteManager.PEDISTAL,
             SpriteParams(
-                path=f'{SpriteManager.root_directory}/pedistal/base/0.png',
+                path=f'{SpriteManager.root_directory}/pedestal/base/0.png',
                 has_angles=False,
                 shift=1.8,
                 scale=0.4,
+                side=30,
                 frame_count=None,
                 anim_dist=800,
                 anim_speed=10,
