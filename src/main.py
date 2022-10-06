@@ -1,7 +1,6 @@
 import pygame as pg
 from util.game_instances import GameInstanceHolder
 from sprite.sprite_manager import SpriteManager
-from sprite.sprite import Sprite
 from util.settings import *
 from player import Player
 from weapon import Weapon

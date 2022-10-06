@@ -26,6 +26,9 @@ class SpriteParams:
         self.base_angles = base_angles
 
         self.sprite_name = self.path.split('/')[-3]
+        if self.path.split('/')[-4] == 'npc':
+            self.sprite_name = 'npc/' + self.sprite_name
+
         self.actualFrames = deque(
             [pygame.image.load(
                 f'res/sprites/{self.sprite_name}/anim/{i}.png').convert_alpha() for i in range(self.frame_count + 1)]
