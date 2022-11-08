@@ -21,12 +21,16 @@ class SpriteManager:
                 path=f'{SpriteManager.root_directory}/barrel/base/0.png',
                 has_angles=False,
                 shift=1.8,
-                scale=0.4,
+                scale=(0.4, 0.4),
                 side=30,
                 frame_count=12,
                 anim_dist=800,
                 anim_speed=10,
-                blocked=True
+                is_dead=3,
+                dead_shift=2.6,
+                blocked=True,
+                flag='decor',
+                obj_action=[]
             )
         )
 
@@ -35,13 +39,17 @@ class SpriteManager:
             SpriteParams(
                 path=f'{SpriteManager.root_directory}/npc/cacodemon/base/0.png',
                 has_angles=True,
-                shift=-0.2,
-                scale=1.1,
+                shift=0.0,
+                scale=(1.1, 1.1),
                 side=50,
                 frame_count=8,
                 anim_dist=700,
                 anim_speed=12,
+                is_dead=5,
+                dead_shift=0.6,
                 blocked=True,
+                flag='npc',
+                obj_action=8,
                 base_angles=7
             )
         )
@@ -51,13 +59,16 @@ class SpriteManager:
             SpriteParams(
                 path=f'{SpriteManager.root_directory}/flame/base/0.png',
                 has_angles=False,
-                shift=1.8,
-                scale=0.4,
+                shift=1.7,
+                scale=(0.6, 0.6),
                 side=30,
                 frame_count=15,
                 anim_dist=1000,
                 anim_speed=9,
-                blocked=False
+                is_dead='immortal',
+                dead_shift=0.0,
+                blocked=False,
+                flag='decor',
             )
         )
 
@@ -67,12 +78,15 @@ class SpriteManager:
                 path=f'{SpriteManager.root_directory}/pedestal/base/0.png',
                 has_angles=False,
                 shift=1.8,
-                scale=0.4,
+                scale=(0.4, 0.4),
                 side=30,
                 frame_count=None,
                 anim_dist=800,
                 anim_speed=10,
+                is_dead='immortal',
+                dead_shift=0.0,
                 blocked=True,
+                flag='decor'
             )
         )
 
