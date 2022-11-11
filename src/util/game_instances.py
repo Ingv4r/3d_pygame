@@ -18,7 +18,7 @@ class GameInstanceHolder:
 
         self.collision_objects = [
             pygame.Rect(*[go.position.point.x, go.position.point.y], go.sprite.side, go.sprite.side) for go in
-            self.game_objects if go.sprite.sprite_params.blocked
+            self.game_objects if go.sprite.blocked
         ]
 
     @property

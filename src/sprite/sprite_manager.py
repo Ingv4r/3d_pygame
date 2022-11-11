@@ -1,6 +1,4 @@
 from typing import Dict
-
-from sprite.sprite import Sprite
 from sprite.sprite_params import SpriteParams
 
 
@@ -13,7 +11,7 @@ class SpriteManager:
     PEDISTAL = "pedistal"
 
     def __init__(self) -> None:
-        self.sprites: Dict[str, Sprite] = dict()
+        self.sprites: Dict[str, SpriteParams] = dict()
 
         self.add_sprite(
             SpriteManager.BARREL,
@@ -90,13 +88,11 @@ class SpriteManager:
             )
         )
 
-    def add_sprite(self, name: str, sprite_params: SpriteParams) -> Sprite:
-        sprite_object = Sprite(sprite_params)
+    def add_sprite(self, name: str, sprite_params: SpriteParams) -> SpriteParams:
+        sprite_object = sprite_params
         self.sprites.update({name: sprite_object})
         return sprite_object
 
-    def get_sprite(self, name: str) -> Sprite:
+    def get_sprite(self, name: str) -> SpriteParams:
         return self.sprites[name]
 
-    def is_sprite_exists(self, name: str) -> bool:
-        return self.sprites[name] is Sprite

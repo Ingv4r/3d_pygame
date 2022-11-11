@@ -18,6 +18,7 @@ class SpriteParams:
                  flag: str,
                  obj_action: list | int = None,
                  base_angles: int = 0) -> None:
+
         self.path = path
         self.has_angles = has_angles
         self.shift = shift
@@ -37,21 +38,33 @@ class SpriteParams:
         if self.path.split('/')[-4] == 'npc':
             self.sprite_name = 'npc/' + self.sprite_name
 
-        if type(self.is_dead) is int:
-            self.death_animation = deque(
-                [pygame.image.load(
-                    f'res/sprites/{self.sprite_name}/death/{i}.png').convert_alpha()
-                 for i in range(self.is_dead + 1)]
-                )
+        self.sprite = pygame.image.load(self.path).convert_alpha()
 
-        if self.obj_action:
-            self.obj_action = deque(
-                [pygame.image.load(
-                    f'res/sprites/{self.sprite_name}/anim/{i}.png').convert_alpha()
-                 for i in range(self.obj_action + 1)]
-                )
+        self.death_animation = deque(
+            [pygame.image.load(
+                f'res/sprites/{self.sprite_name}/death/{i}.png').convert_alpha()
+                for i in range(self.is_dead + 1)])if type(self.is_dead) is int else []
+
+        self.obj_action = deque(
+            [pygame.image.load(
+                f'res/sprites/{self.sprite_name}/anim/{i}.png').convert_alpha() \
+             for i in range(self.obj_action + 1)]) if self.obj_action else []
 
         self.actualFrames = deque(
             [pygame.image.load(
                 f'res/sprites/{self.sprite_name}/anim/{i}.png').convert_alpha()
-             for i in range(self.frame_count + 1)]) if self.frame_count else None
+             for i in range(self.frame_count + 1)]) if self.frame_count else []
+
+        if self.has_angles:
+            path = self.path[:-5]
+            self.sprite = [pygame.image.load(
+                f'{path}{i}.png').convert_alpha() for i in range(self.base_angles + 1)]
+            self.sprite_angles = [frozenset(range(338, 361)) | frozenset(range(0, 23))] + \
+                                 [frozenset(range(i, i + 45)) for i in range(0, 360, 45)]
+            self.sprite_positions = {angle: pos for angle, pos in zip(self.sprite_angles, self.sprite)}
+
+        self.npc_action_trigger = False
+        self.dead_animation_count = 0
+        self.animation_count = 0
+        self.side = 30
+        self.x, self.y = 0, 0
