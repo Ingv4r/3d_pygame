@@ -1,7 +1,7 @@
 import pygame as pg
+from util.settings import *
 from util.game_instances import GameInstanceHolder
 from sprite.sprite_manager import SpriteManager
-from util.settings import *
 from player import Player
 from weapon import Weapon
 from renderer.drawing import Drawing
@@ -27,7 +27,7 @@ while running:
     drawing.world(walls + [game_object.object_locate(player) for game_object in game_instance_holder.game_objects])
     drawing.fps(clock)
     drawing.mini_map(player)
-    drawing.player_weapon([wall_shot, game_instance_holder.sprite_shot])
+    drawing.player_weapon([wall_shot, game_instance_holder.object_hit])
 
     pg.display.flip()
     clock.tick(FPS)
