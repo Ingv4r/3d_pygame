@@ -29,7 +29,7 @@ DIST = NUM_RAYS / (2 * math.tan(HALF_FOV))
 PROJ_COEF = 3 * DIST * TILE
 SCALE = WIDTH // NUM_RAYS
 
-# sprite settings
+# objects_of_game settings
 DOUBLE_PI = 2 * math.pi
 CENTER_RAY = NUM_RAYS // 2 - 1
 FAKE_RAYS = 100

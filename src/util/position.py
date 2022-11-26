@@ -1,12 +1,14 @@
-from __future__ import annotations
-from util.point2d import Point2d
+class Point2d:
+    def __init__(self, x: float = 0, y: float = 0) -> None:
+        self.x: float = x
+        self.y: float = y
 
 
 class Position:
     def __init__(self, point: Point2d) -> None:
         self.point = point
 
-    def update(self, x: float = 0, y: float = 0) -> Position:
+    def update(self, x: float = 0, y: float = 0):
         self.point.x = x
         self.point.y = y
         return Position(Point2d(self.point.x, self.point.y))
@@ -15,6 +17,4 @@ class Position:
     # def update(self, point: Point2d) -> None:
     #     self.point = point
 
-    # ensure minus is working or write impl 
-    def minus(self, position: Position) -> Position:
-        self.point - position.point
+    # ensure minus is working or write impl

@@ -1,6 +1,6 @@
 import pygame
 from collections import deque
-from util.settings import *
+from src.util.settings import *
 
 
 class Weapon:

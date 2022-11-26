@@ -1,16 +1,17 @@
-from util.game_instances import GameInstanceHolder
-from util.settings import *
+from src.objects_of_game.interact_objects import InteractObjectsHolder
+from src.util.map import collision_walls
+from src.util.settings import *
 import pygame
 import math
-from map import collision_walls
+
 
 class Player:
-    def __init__(self, game_instance_holder: GameInstanceHolder):
+    def __init__(self, interact_objects: InteractObjectsHolder):
         self.x, self.y = player_pos
         self.angle = player_angle
         self.sensitivity = 0.004
         # collision parameters
-        self.sprites = game_instance_holder
+        self.objects = interact_objects
         self.side = 50
         self.rect = pygame.Rect(*player_pos, self.side, self.side)
         # weapon
@@ -18,11 +19,11 @@ class Player:
 
     @property
     def pos(self):
-        return (self.x, self.y)
+        return self.x, self.y
 
     @property
     def collision_list(self):
-        return collision_walls + self.sprites.collision_objects
+        return collision_walls + self.objects.collision_objects
 
     def detect_collision(self, dx, dy):
         next_rect = self.rect.copy()

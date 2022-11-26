@@ -1,6 +1,6 @@
 import pygame
 from src.util.settings import *
-from src.map import world_map, WORLD_WIDTH, WORLD_HEIGHT
+from src.util.map import world_map, WORLD_WIDTH, WORLD_HEIGHT
 from numba import njit
 
 

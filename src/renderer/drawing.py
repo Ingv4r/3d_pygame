@@ -1,7 +1,6 @@
-from logging import root
 import pygame
 from src.util.settings import *
-from src.map import mini_map
+from src.util.map import mini_map
 
 
 class Drawing:
@@ -71,6 +70,7 @@ class Drawing:
                 self.player.shot = False
                 self.weapon.shot_length_count = 0
                 self.weapon.sfx_length_count = 0
+                self.weapon.shot_animation_trigger = True
         else:
             self.screen.blit(self.weapon.weapon_base_sprite, self.weapon.weapon_pos)
 
