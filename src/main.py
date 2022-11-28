@@ -32,6 +32,7 @@ while running:
     drawing.player_weapon([wall_shot, int_obj_holder.object_hit])
 
     interaction.interaction_objects()
+    interaction.npc_action()
 
     pg.display.flip()
     clock.tick(FPS)

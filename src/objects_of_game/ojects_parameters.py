@@ -23,7 +23,7 @@ class BarrelParams:
         self.destroy_animation = deque(
             [pygame.image.load(f'res/sprites/barrel/death/{i}.png').convert_alpha() for i in range(4)]
         )
-        self.destroy_shift = 10.0
+        self.destroy_shift = -10.0
         self.animation_dist = 800
         self.animation_speed = 10
         self.impassable = True

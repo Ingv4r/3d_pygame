@@ -1,6 +1,10 @@
 from src.util.settings import *
 from src.util.map import world_map
 from src.util.ray_casting import mapping
+from src.objects_of_game.player import Player
+from src.objects_of_game.weapon import Weapon
+from src.objects_of_game.interact_objects import InteractObjectsHolder
+from src.renderer.drawing import Drawing
 from numba import njit
 import math
 
@@ -41,7 +45,7 @@ def ray_casting_npc_player(npc_x, npc_y, game_map, player_position):
 
 
 class Interaction:
-    def __init__(self, player, sprites, drawing, weapon):
+    def __init__(self, player: Player, sprites: InteractObjectsHolder, drawing: Drawing, weapon: Weapon):
         self.player = player
         self.sprites = sprites
         self.drawing = drawing
@@ -57,3 +61,19 @@ class Interaction:
                             obj.impassable = None
                             self.weapon.shot_animation_trigger = False
                     break
+
+    def npc_action(self):
+        for obj in self.sprites.game_objects:
+            if obj.flag == 'npc' and not obj.is_destroy:
+                if ray_casting_npc_player(obj.x, obj.y, world_map, self.player.pos):
+                    obj.npc_action_trigger = True
+                    self.npc_move(obj)
+                else:
+                    obj.npc_action_trigger = False
+
+    def npc_move(self, obj):
+        if obj.distance_to_sprite > TILE:
+            dx = obj.x - self.player.pos[0]
+            dy = obj.y - self.player.pos[1]
+            obj.x = obj.x + 1 if dx < 0 else obj.x - 1
+            obj.y = obj.y + 1 if dy < 0 else obj.y - 1
