@@ -3,12 +3,13 @@ import pygame
 
 
 class InteractParamsHolder:
-    def __init__(self):
+    def __init__(self) -> None:
         self.barrel = BarrelParams()
         self.flame = FlameParams()
         self.ghost = GhostParams()
         self.cacodemon = CacodemonParams()
         self.pedestal = PedestalParams()
+        self.door = DoorParams()
 
 
 class BarrelParams:
@@ -95,14 +96,28 @@ class GhostParams:
         check_params(self)
 
 
-def check_params(obj):
+class DoorParams:
+    def __init__(self) -> None:
+        self.sprite = [pygame.image.load(f'res/sprites/doors/door_v/{i}.png') for i in range(16)]
+        self.shift = 0.1
+        self.scale = (2.6, 1.2)
+        self.side = 100
+        self.is_destroy = 'immortal'
+        self.animation_dist = 0
+        self.animation_speed = 0
+        self.impassable = True
+        self.flag = 'door_v'
+        check_params(self)
+
+
+def check_params(clas):
     dict_of_attributes = {'[]': ['animation', 'destroy_animation', 'obj_attack'],
                           'None': ['viewing_angles', 'is_destroy', 'impassable', 'destroy_shift']
                           }
     for val in dict_of_attributes.values():
         for attr in val:
-            if not hasattr(obj, attr):
-                add_param(dict_of_attributes, obj, attr)
+            if not hasattr(clas, attr):
+                add_param(dict_of_attributes, clas, attr)
 
 
 def add_param(dct: dict, obj, attribute: str):

@@ -10,7 +10,8 @@ class GameObject:
                              FlameParams |
                              CacodemonParams |
                              PedestalParams |
-                             GhostParams,
+                             GhostParams |
+                             DoorParams,
                  pos: tuple) -> None:
         self.sprite = parameters.sprite.copy()
         self.viewing_angles = parameters.viewing_angles
@@ -33,7 +34,7 @@ class GameObject:
         self.animation_count = 0
         self.npc_action_trigger = False
         self.door_open_trigger = False
-        self.door_prev_pos = self.y if self.flag == 'door_h' else self.x
+        self.door_prev_pos = self.y if self.flag == 'door_v' else self.x
         self.delete = False
         if self.viewing_angles:
             if len(self.sprite) == 8:
@@ -79,7 +80,8 @@ class GameObject:
 
         delta_rays = int(gamma / DELTA_ANGLE)
         self.current_ray = CENTER_RAY + delta_rays
-        self.distance_to_sprite *= math.cos(HALF_FOV - self.current_ray * DELTA_ANGLE)
+        if self.flag != 'door_v':
+            self.distance_to_sprite *= math.cos(HALF_FOV - self.current_ray * DELTA_ANGLE)
 
         fake_ray = self.current_ray + FAKE_RAYS
         return fake_ray
@@ -89,22 +91,29 @@ class GameObject:
 
         if 0 <= fake_ray <= FAKE_RAYS_RANGE and self.distance_to_sprite > 30:
             self.proj_height = min(
-                int(PROJ_COEF / self.distance_to_sprite), DOUBLE_HEIGHT)
+                int(PROJ_COEF / self.distance_to_sprite), DOUBLE_HEIGHT if self.flag != 'door_v' else HEIGHT)
             sprite_width = int(self.proj_height * self.scale[0])
             sprite_height = int(self.proj_height * self.scale[1])
             half_sprite_width = sprite_width // 2
             half_sprite_height = sprite_height // 2
             shift = half_sprite_height * self.shift
 
-            if self.is_destroy and self.is_destroy != 'immortal':
-                sprite_object = self.destroy_anim()
-                shift = half_sprite_height + self.destroy_shift
-                sprite_height = int(sprite_height / 1.3)
-            elif self.npc_action_trigger:
-                sprite_object = self.npc_attack()
-            else:
+            # logic for doors
+            if self.flag == 'door_v':
+                if self.door_open_trigger:
+                    self.open_door()
                 self.sprite = self.visible_sprite()
                 sprite_object = self.object_animation()
+            else:
+                if self.is_destroy and self.is_destroy != 'immortal':
+                    sprite_object = self.destroy_anim()
+                    shift = half_sprite_height + self.destroy_shift
+                    sprite_height = int(sprite_height / 1.3)
+                elif self.npc_action_trigger:
+                    sprite_object = self.npc_attack()
+                else:
+                    self.sprite = self.visible_sprite()
+                    sprite_object = self.object_animation()
 
             # Objects_of_game scale and pos
             sprite_pos = (self.current_ray * SCALE - half_sprite_width,
@@ -155,3 +164,6 @@ class GameObject:
             self.obj_attack.rotate()
             self.animation_count = 0
         return sprite_object
+
+
+    def open_door(self):

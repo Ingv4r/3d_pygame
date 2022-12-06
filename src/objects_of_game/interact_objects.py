@@ -1,6 +1,10 @@
 import pygame
 from src.objects_of_game.game_object import GameObject
 from src.objects_of_game.ojects_parameters import InteractParamsHolder
+from numba.core import types
+from numba.typed import Dict
+from numba import int32
+from src.util.ray_casting import mapping
 
 
 class InteractObjectsHolder:
@@ -11,6 +15,7 @@ class InteractObjectsHolder:
         flame = GameObject(params.flame, (9, 13.5))
         pedestal = GameObject(params.pedestal, (8, 13.5))
         ghost = GameObject(params.ghost, (18, 12))
+        door = GameObject(params.door, (17.5, 2.5))
 
         self.game_objects = [
             barrel1,
@@ -18,8 +23,19 @@ class InteractObjectsHolder:
             cacodemon,
             flame,
             pedestal,
-            ghost
+            ghost,
+            door
         ]
+
+    @property
+    def blocked_doors(self):
+        blocked_doors = Dict.empty(key_type=types.UniTuple(int32, 2), valid_type=int32)
+        for obj in self.game_objects:
+            if obj.flag == 'door_v' and obj.impassable:
+                i, j = mapping(obj.x, obj.y)
+                blocked_doors[(i, j)] = 0
+        return blocked_doors
+
 
     @property
     def collision_objects(self):
