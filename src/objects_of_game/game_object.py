@@ -11,7 +11,8 @@ class GameObject:
                              CacodemonParams |
                              PedestalParams |
                              GhostParams |
-                             DoorParams,
+                             DoorVParams |
+                             DoorVParams,
                  pos: tuple) -> None:
         self.sprite = parameters.sprite.copy()
         self.viewing_angles = parameters.viewing_angles
@@ -34,7 +35,7 @@ class GameObject:
         self.animation_count = 0
         self.npc_action_trigger = False
         self.door_open_trigger = False
-        self.door_prev_pos = self.y if self.flag == 'door_v' else self.x
+        self.door_prev_pos = self.y if self.flag == 'door_h' else self.x
         self.delete = False
         if self.viewing_angles:
             if len(self.sprite) == 8:
@@ -80,7 +81,7 @@ class GameObject:
 
         delta_rays = int(gamma / DELTA_ANGLE)
         self.current_ray = CENTER_RAY + delta_rays
-        if self.flag != 'door_v':
+        if self.flag not in ['door_v', 'door_h']:
             self.distance_to_sprite *= math.cos(HALF_FOV - self.current_ray * DELTA_ANGLE)
 
         fake_ray = self.current_ray + FAKE_RAYS
@@ -91,7 +92,9 @@ class GameObject:
 
         if 0 <= fake_ray <= FAKE_RAYS_RANGE and self.distance_to_sprite > 30:
             self.proj_height = min(
-                int(PROJ_COEF / self.distance_to_sprite), DOUBLE_HEIGHT if self.flag != 'door_v' else HEIGHT)
+                int(PROJ_COEF / self.distance_to_sprite), DOUBLE_HEIGHT
+                if self.flag not in ['door_v', 'door_h']
+                else HEIGHT)
             sprite_width = int(self.proj_height * self.scale[0])
             sprite_height = int(self.proj_height * self.scale[1])
             half_sprite_width = sprite_width // 2
@@ -99,9 +102,9 @@ class GameObject:
             shift = half_sprite_height * self.shift
 
             # logic for doors
-            if self.flag == 'door_v':
+            if self.flag in ['door_v', 'door_h']:
                 if self.door_open_trigger:
-                    self.open_door()
+                    self.open_doors()
                 self.sprite = self.visible_sprite()
                 sprite_object = self.object_animation()
             else:
@@ -165,5 +168,12 @@ class GameObject:
             self.animation_count = 0
         return sprite_object
 
-
-    def open_door(self):
+    def open_doors(self):
+        if self.flag == 'door_h':
+            self.y -= 3
+            if abs(self.y - self.door_prev_pos) > TILE:
+                self.delete = True
+        elif self.flag == 'door_v':
+            self.x -= 3
+            if abs(self.x - self.door_prev_pos) > TILE:
+                self.delete = True

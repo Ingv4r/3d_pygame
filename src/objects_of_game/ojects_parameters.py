@@ -9,7 +9,8 @@ class InteractParamsHolder:
         self.ghost = GhostParams()
         self.cacodemon = CacodemonParams()
         self.pedestal = PedestalParams()
-        self.door = DoorParams()
+        self.doorV = DoorVParams()
+        self.doorH = DoorHParams()
 
 
 class BarrelParams:
@@ -96,28 +97,42 @@ class GhostParams:
         check_params(self)
 
 
-class DoorParams:
+class DoorVParams:
     def __init__(self) -> None:
         self.sprite = [pygame.image.load(f'res/sprites/doors/door_v/{i}.png') for i in range(16)]
+        self.viewing_angles = True
         self.shift = 0.1
         self.scale = (2.6, 1.2)
         self.side = 100
         self.is_destroy = 'immortal'
-        self.animation_dist = 0
-        self.animation_speed = 0
         self.impassable = True
         self.flag = 'door_v'
         check_params(self)
 
 
-def check_params(clas):
-    dict_of_attributes = {'[]': ['animation', 'destroy_animation', 'obj_attack'],
-                          'None': ['viewing_angles', 'is_destroy', 'impassable', 'destroy_shift']
+class DoorHParams:
+    def __init__(self) -> None:
+        self.sprite = [pygame.image.load(f'res/sprites/doors/door_h/{i}.png') for i in range(16)]
+        self.viewing_angles = True
+        self.shift = 0.1
+        self.scale = (2.6, 1.2)
+        self.side = 100
+        self.is_destroy = 'immortal'
+        self.impassable = True
+        self.flag = 'door_h'
+        check_params(self)
+
+
+def check_params(class_object):
+    dict_of_attributes = {'[]': ['animation', 'destroy_animation', 'obj_attack', 'sprite'],
+                          'None': ['viewing_angles', 'impassable', 'destroy_shift'],
+                          '0': ['shift', 'side', 'animation_dist', 'animation_speed', 'is_destroy'],
+                          '': ['flag']
                           }
     for val in dict_of_attributes.values():
         for attr in val:
-            if not hasattr(clas, attr):
-                add_param(dict_of_attributes, clas, attr)
+            if not hasattr(class_object, attr):
+                add_param(dict_of_attributes, class_object, attr)
 
 
 def add_param(dct: dict, obj, attribute: str):
@@ -125,3 +140,7 @@ def add_param(dct: dict, obj, attribute: str):
         setattr(obj, attribute, [])
     elif attribute in dct['None']:
         setattr(obj, attribute, None)
+    elif attribute in dct['0']:
+        setattr(obj, attribute, 0)
+    elif attribute in dct['']:
+        setattr(obj, attribute, '')

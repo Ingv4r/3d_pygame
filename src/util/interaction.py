@@ -10,7 +10,7 @@ import math
 
 
 @njit(fastmath=True, cache=True)
-def ray_casting_npc_player(npc_x, npc_y, game_map, player_position):
+def ray_casting_npc_player(npc_x, npc_y, blocked_doors, game_map, player_position):
     ox, oy = player_position
     xm, ym = mapping(ox, oy)
     delta_x, delta_y = ox - npc_x, oy - npc_y
@@ -28,7 +28,7 @@ def ray_casting_npc_player(npc_x, npc_y, game_map, player_position):
         depth_v = (x - ox) / cos_a
         yv = oy + depth_v * sin_a
         tile_v = mapping(x + dx, yv)
-        if tile_v in game_map:
+        if tile_v in game_map or tile_v in blocked_doors:
             return False
         x += dx * TILE
 
@@ -38,7 +38,7 @@ def ray_casting_npc_player(npc_x, npc_y, game_map, player_position):
         depth_h = (y - oy) / sin_a
         xh = ox + depth_h * cos_a
         tile_h = mapping(xh, y + dy)
-        if tile_h in game_map:
+        if tile_h in game_map or tile_h in blocked_doors:
             return False
         y += dy * TILE
     return True
@@ -56,16 +56,19 @@ class Interaction:
             for obj in sorted(self.sprites.game_objects, key=lambda ob: ob.distance_to_sprite):
                 if obj.is_on_fire[1]:
                     if obj.is_destroy != 'immortal' and not obj.is_destroy:
-                        if ray_casting_npc_player(obj.x, obj.y, world_map, self.player.pos):
+                        if ray_casting_npc_player(obj.x, obj.y, self.sprites.blocked_doors, world_map, self.player.pos):
                             obj.is_destroy = True
                             obj.impassable = None
                             self.weapon.shot_animation_trigger = False
+                    if obj.flag in {'door_h', 'door_v'} and obj.distance_to_sprite < TILE:
+                        obj.door_open_trigger = True
+                        obj.impassable = None
                     break
 
     def npc_action(self):
         for obj in self.sprites.game_objects:
             if obj.flag == 'npc' and not obj.is_destroy:
-                if ray_casting_npc_player(obj.x, obj.y, world_map, self.player.pos):
+                if ray_casting_npc_player(obj.x, obj.y, self.sprites.blocked_doors, world_map, self.player.pos):
                     obj.npc_action_trigger = True
                     self.npc_move(obj)
                 else:

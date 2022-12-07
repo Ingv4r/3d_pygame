@@ -15,7 +15,7 @@ class InteractObjectsHolder:
         flame = GameObject(params.flame, (9, 13.5))
         pedestal = GameObject(params.pedestal, (8, 13.5))
         ghost = GameObject(params.ghost, (18, 12))
-        door = GameObject(params.door, (17.5, 2.5))
+        door = GameObject(params.doorV, (17.5, 2.5))
 
         self.game_objects = [
             barrel1,
@@ -29,7 +29,7 @@ class InteractObjectsHolder:
 
     @property
     def blocked_doors(self):
-        blocked_doors = Dict.empty(key_type=types.UniTuple(int32, 2), valid_type=int32)
+        blocked_doors = Dict.empty(key_type=types.UniTuple(int32, 2), value_type=int32)
         for obj in self.game_objects:
             if obj.flag == 'door_v' and obj.impassable:
                 i, j = mapping(obj.x, obj.y)
