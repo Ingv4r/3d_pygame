@@ -12,7 +12,7 @@ class GameObject:
                              PedestalParams |
                              GhostParams |
                              DoorVParams |
-                             DoorVParams,
+                             DoorHParams,
                  pos: tuple) -> None:
         self.sprite = parameters.sprite.copy()
         self.viewing_angles = parameters.viewing_angles
@@ -38,12 +38,7 @@ class GameObject:
         self.door_prev_pos = self.y if self.flag == 'door_h' else self.x
         self.delete = False
         if self.viewing_angles:
-            if len(self.sprite) == 8:
-                self.sprite_angles = [frozenset(range(338, 361)) | frozenset(range(0, 23))] + \
-                                     [frozenset(range(i, i + 45)) for i in range(23, 338, 45)]
-            else:
-                self.sprite_angles = [frozenset(range(348, 361)) | frozenset(range(0, 11))] + \
-                                     [frozenset(range(i, i + 23)) for i in range(11, 348, 23)]
+            self.sprite_angles = parameters.sprite_angles
             self.sprite_positions = {angle: pos for angle, pos in zip(self.sprite_angles, self.sprite)}
         # Parameters to calculate. Initialized here for ease of calling inside class methods
         self.distance_to_sprite = None
@@ -157,6 +152,8 @@ class GameObject:
             else:
                 self.destroy_sprite = self.destroy_animation.popleft()
                 self.destroy_anim_count = 0
+        else:
+            self.delete = True
         return self.destroy_sprite
 
     def npc_attack(self):

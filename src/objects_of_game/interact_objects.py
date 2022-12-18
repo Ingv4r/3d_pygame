@@ -3,7 +3,7 @@ from src.objects_of_game.game_object import GameObject
 from src.objects_of_game.ojects_parameters import InteractParamsHolder
 from numba.core import types
 from numba.typed import Dict
-from numba import int32
+from numba import float64
 from src.util.ray_casting import mapping
 
 
@@ -16,11 +16,13 @@ class InteractObjectsHolder:
         pedestal = GameObject(params.pedestal, (8, 13.5))
         ghost = GameObject(params.ghost, (18, 12))
         door = GameObject(params.doorV, (17.5, 2.5))
+        cacodemon2 = GameObject(params.cacodemon, (20.5, 2.5))
 
         self.game_objects = [
             barrel1,
             barrel2,
             cacodemon,
+            cacodemon2,
             flame,
             pedestal,
             ghost,
@@ -29,13 +31,12 @@ class InteractObjectsHolder:
 
     @property
     def blocked_doors(self):
-        blocked_doors = Dict.empty(key_type=types.UniTuple(int32, 2), value_type=int32)
+        blocked_doors = Dict.empty(key_type=types.UniTuple(float64, 2), value_type=float64)
         for obj in self.game_objects:
-            if obj.flag == 'door_v' and obj.impassable:
+            if obj.flag in ('door_v', 'door_h') and obj.impassable:
                 i, j = mapping(obj.x, obj.y)
                 blocked_doors[(i, j)] = 0
         return blocked_doors
-
 
     @property
     def collision_objects(self):

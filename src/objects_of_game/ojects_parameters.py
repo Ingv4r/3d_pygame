@@ -124,15 +124,18 @@ class DoorHParams:
 
 
 def check_params(class_object):
-    dict_of_attributes = {'[]': ['animation', 'destroy_animation', 'obj_attack', 'sprite'],
-                          'None': ['viewing_angles', 'impassable', 'destroy_shift'],
-                          '0': ['shift', 'side', 'animation_dist', 'animation_speed', 'is_destroy'],
-                          '': ['flag']
-                          }
-    for val in dict_of_attributes.values():
+    lost_parameters = {'[]': ['animation', 'destroy_animation', 'obj_attack', 'sprite'],
+                       'None': ['viewing_angles', 'impassable', 'destroy_shift'],
+                       '0': ['shift', 'side', 'animation_dist', 'animation_speed', 'is_destroy'],
+                       '': ['flag']
+                       }
+    if hasattr(class_object, 'viewing_angles'):
+        add_sprite_angles(class_object)
+
+    for val in lost_parameters.values():
         for attr in val:
             if not hasattr(class_object, attr):
-                add_param(dict_of_attributes, class_object, attr)
+                add_param(lost_parameters, class_object, attr)
 
 
 def add_param(dct: dict, obj, attribute: str):
@@ -144,3 +147,13 @@ def add_param(dct: dict, obj, attribute: str):
         setattr(obj, attribute, 0)
     elif attribute in dct['']:
         setattr(obj, attribute, '')
+
+
+def add_sprite_angles(obj):
+    if len(obj.sprite) == 8:
+        obj.sprite_angles = [frozenset(range(338, 361)) | frozenset(range(0, 23))] + \
+                            [frozenset(range(i, i + 45)) for i in range(23, 338, 45)]
+    else:
+        obj.sprite_angles = [frozenset(range(348, 361)) | frozenset(range(0, 11))] + \
+                            [frozenset(range(i, i + 23)) for i in range(11, 348, 23)]
+    obj.sprite_positions = {angle: pos for angle, pos in zip(obj.sprite_angles, obj.sprite)}

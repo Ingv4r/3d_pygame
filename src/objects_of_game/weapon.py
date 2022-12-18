@@ -21,6 +21,7 @@ class Weapon:
         self.shot_animation_speed = 3
         self.shot_animation_count = 0
         self.shot_animation_trigger = True
+        self.shot_sound = pygame.mixer.Sound('res/sounds/shotgun.wav')
         # sfx parameters
         self.sfx = deque(
             [pygame.image.load(f'{directory}sfx/{i}.png').convert_alpha()
